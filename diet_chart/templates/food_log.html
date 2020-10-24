@@ -67,6 +67,14 @@
 				cell1.innerHTML = (name[i].replace("'","").replace("'",""));;
 				cell2.innerHTML = (time[i].replace("'","").replace("'",""));
 				cell3.innerHTML = (calories[i].replace("'","").replace("'",""));
+				var fod = "";
+				for(var k = 0;k<items.length;k++){
+					var fo = items[k].split("+");
+					if(fo[0].includes(name[i].replace("'","").replace("'",""))){
+						fod += fo[1].replace("'","")+",";
+					}
+				}
+				cell4.innerHTML = fod;
 
 				}
 				
