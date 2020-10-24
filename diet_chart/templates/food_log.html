@@ -22,22 +22,10 @@
 	
 	{% autoescape off %}
 	<script>
-		myFunction()
+		
 		myFunction1()
 		diet_chart()
 
-		function myFunction() {
-		  var food = ["rice","dal","rice dal","Chapati"];
-		  var item = document.getElementById("name").value;
-		  for(var i = 0 ; i<food.length;i++){
-		 	if (food[i].includes(item)){
-		  		var opt = document.createElement("option");
-		  		opt.value = food[i]
-		  		document.getElementById("items").appendChild(opt);
-		  	}
-		  }
-		  
-		}
 
 		function myFunction1() {
 		  var food = "{{Meal_name}}".replace("[","").replace("]","").split(",");
