@@ -1,0 +1,83 @@
+{% extends "index.html" %}
+
+{% block content %}
+	<table border="1" id="table" >
+		<tr>
+			<td>Meal Name</td>
+			<td>Meal Time</td>
+			<td>Calories Allowed (Kcal)</td>
+			<td>Items</td>
+		</tr>
+		
+		
+	</table>
+
+	<form action="../item/" method="POST" style="margin-left: 40%;margin-top: 1%;"> {% csrf_token %}
+		<input type="text" list="meal_name" name="Meal_names">
+		<datalist id="meal_name"></datalist>
+		<input type="text" placeholder="Food Name" id="name" list="items" name="Meal_items">
+		<datalist id="items"></datalist>
+		<input type="submit" value="Done" style="margin-top: 5px;"name = "car">
+	</form>
+	
+	{% autoescape off %}
+	<script>
+		myFunction()
+		myFunction1()
+		diet_chart()
+
+		function myFunction() {
+		  var food = ["rice","dal","rice dal","Chapati"];
+		  var item = document.getElementById("name").value;
+		  for(var i = 0 ; i<food.length;i++){
+		 	if (food[i].includes(item)){
+		  		var opt = document.createElement("option");
+		  		opt.value = food[i]
+		  		document.getElementById("items").appendChild(opt);
+		  	}
+		  }
+		  
+		}
+
+		function myFunction1() {
+		  var food = "{{Meal_name}}".replace("[","").replace("]","").split(",");
+		  for(var i = 0 ; i< food.length;i++){
+		  		var opt = document.createElement("option");
+		  		opt.value = food[i].replace("'","").replace("'","");
+		  		document.getElementById("meal_name").appendChild(opt);
+		  	}
+		  }
+		  
+		
+
+
+		function diet_chart(){
+			var name =  "{{Meal_name}}".replace("[","").replace("]","").split(",");
+			var time =  "{{Meal_time}}".replace("[","").replace("]","").split(",");
+			var items = "{{Meal_items}}".replace("[","").replace("]","").split(",");
+			var calories =  "{{Meal_calories}}".replace("[","").replace("]","").split(",");
+			var table = document.getElementById("table");
+			
+			for(var i = 0 ; i<name.length ;i++ ){
+				var row = table.insertRow(i+1);
+				var cell1 = row.insertCell(0);
+				var cell2 = row.insertCell(1);
+				var cell3 = row.insertCell(2);
+				var cell4 = row.insertCell(3);
+				cell1.innerHTML = (name[i].replace("'","").replace("'",""));;
+				cell2.innerHTML = (time[i].replace("'","").replace("'",""));
+				cell3.innerHTML = (calories[i].replace("'","").replace("'",""));
+
+				}
+				
+
+				// Maches the Meal name with the row name and display the items accordingly
+
+			}	
+			
+		
+		
+	</script>
+	{% endautoescape %}
+
+{% endblock content %}

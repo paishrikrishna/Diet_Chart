@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Doc</title>
+</head>
+<style type="text/css">
+	
+	#chart{
+		margin-top: 2%;
+		margin-left: -7%;
+	}
+
+
+</style>
+<body>
+	<b>I am here to make History</b>
+	{% block content %}
+	<form action="." method="POST" style="margin-left: 40%;margin-top: 1%;"> {% csrf_token %}
+		<input type="number" placeholder="total-meals" id="total-meals" name="total_meals">
+	
+		<div id="chart">
+
+		</div>
+		<input type="submit" value="Done" style="margin-top: 5px;">
+	</form>
+	
+	{% autoescape off %}
+	<script>
+		myFunction()
+		function myFunction() {
+		  var i ;
+		  var parent = document.getElementById("chart");
+		  var x = document.getElementById("total-meals").value;
+		  var ex = document.getElementsByClassName("as");
+		  if (x - ex.length >= 0){
+			  for(i = 0;i< x - ex.length;i++){
+			  	var div = document.createElement("div")
+			  	var meal_name = document.createElement("input");
+			  	var meal_time = document.createElement("input");
+			  	div.className = "as";
+			  	meal_name.name = "Meal_name";
+			  	meal_time.name = "Meal_time";
+			  	meal_name.placeholder = "Enter Meal Name";
+			  	meal_time.placeholder = "Time In 24:00 hr Format";
+			  	meal_time.type = "time";
+			  	div.appendChild(meal_name);
+			  	div.appendChild(meal_time);
+			  	parent.appendChild(div);
+			  }
+			}
+		  else{
+		  		for(i=0;i<(ex.length-x);i++){
+		  			ex[i].remove();
+		  		}
+			}
+
+		  
+		  setTimeout(myFunction, 1);
+		}
+
+		
+	</script>
+	{% endautoescape %}
+	{% endblock content %}
+
+</body>
+
+</html>
