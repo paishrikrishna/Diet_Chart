@@ -67,8 +67,7 @@ class food(data):
 		#print(self.item)
 		return str(self.b_cal)
 
-	def log_food(self,food_item):
-		self.item.append(food_item)
+	
 
 
 
