@@ -6,6 +6,7 @@ class meal_distribution_form(forms.ModelForm):
 		model = meal_distribution
 		fields={
 			'User_no',
+			'Date',
 			'Meal_names',
 			'Meal_times',
 			'Meal_calories',
