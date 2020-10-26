@@ -16,14 +16,17 @@ import matplotlib.pyplot as plt
 import math
 import datetime
 import random 
+import datetime
 
 from django.shortcuts import render
 from .form import meal_distribution_form
 from .models import meal_distribution
+
 # Create your views here.
 
 plt.style.use('ggplot')
 days = 0
+
 
 
 def data_combine(folder):
@@ -89,17 +92,24 @@ def logg(request):
 		return render(request,"food_log.html",dic)
 
 
+
+
 def home_page(request):
-	data_combine("/home/shri/Desktop/Daily Aggregations")
+	
 	try:
-		obj = meal_distribution.objects.get(User_no="1")
+		obj = meal_distribution.objects.get(User_no="1",Date="2020-10-28")
 	except:
 		try:
 			meal_distribution_form().save()
 		except:
-			pass
-	obj = meal_distribution.objects.get(User_no="1")
+			obj = meal_distribution.objects.get(User_no="n/a")
+			obj.User_no = "1"
+			obj.Date = "2020-10-28"
+	
+	obj.save()
+	
 	if request.method == "POST":
+		data_combine("/home/shri/Desktop/Daily Aggregations")
 		Meal_calories = []
 		objects=[]
 		
@@ -120,6 +130,7 @@ def home_page(request):
 			Meal_calories.append(i.print())
 			c+=1	
 
+		#obj.Date = str(datetime.datetime.now()).split(" ")[0]
 		
 	else:
 		Meal_name = ""
